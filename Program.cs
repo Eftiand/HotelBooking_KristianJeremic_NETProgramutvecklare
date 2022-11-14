@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using HotelBooking_KristianJeremic_NETProgramutvecklare.Views;
+using System;
 using System.Windows.Forms;
 
 namespace HotelBooking_KristianJeremic_NETProgramutvecklare
@@ -16,7 +14,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new IndexForm());
         }
     }
 }
