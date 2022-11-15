@@ -50,15 +50,18 @@
             // 
             this.UserNameTextBox.Location = new System.Drawing.Point(12, 64);
             this.UserNameTextBox.Name = "UserNameTextBox";
-            this.UserNameTextBox.Size = new System.Drawing.Size(282, 20);
+            this.UserNameTextBox.Size = new System.Drawing.Size(156, 20);
             this.UserNameTextBox.TabIndex = 1;
+            this.UserNameTextBox.Text = "Kris";
             // 
             // PinCodeTextBox
             // 
             this.PinCodeTextBox.Location = new System.Drawing.Point(12, 106);
             this.PinCodeTextBox.Name = "PinCodeTextBox";
-            this.PinCodeTextBox.Size = new System.Drawing.Size(282, 20);
+            this.PinCodeTextBox.PasswordChar = '*';
+            this.PinCodeTextBox.Size = new System.Drawing.Size(156, 20);
             this.PinCodeTextBox.TabIndex = 3;
+            this.PinCodeTextBox.Text = "1234";
             this.PinCodeTextBox.TextChanged += new System.EventHandler(this.PinCodeTextBox_TextChanged);
             // 
             // PinCodeLabel
@@ -74,7 +77,7 @@
             // RegisterButton
             // 
             this.RegisterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RegisterButton.Location = new System.Drawing.Point(12, 181);
+            this.RegisterButton.Location = new System.Drawing.Point(12, 144);
             this.RegisterButton.Name = "RegisterButton";
             this.RegisterButton.Size = new System.Drawing.Size(75, 23);
             this.RegisterButton.TabIndex = 4;
@@ -85,7 +88,7 @@
             // LoginButton
             // 
             this.LoginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LoginButton.Location = new System.Drawing.Point(219, 181);
+            this.LoginButton.Location = new System.Drawing.Point(93, 144);
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Size = new System.Drawing.Size(75, 23);
             this.LoginButton.TabIndex = 5;
@@ -98,7 +101,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.ClientSize = new System.Drawing.Size(306, 216);
+            this.ClientSize = new System.Drawing.Size(183, 190);
             this.Controls.Add(this.LoginButton);
             this.Controls.Add(this.RegisterButton);
             this.Controls.Add(this.PinCodeTextBox);

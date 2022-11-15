@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HotelDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HotelDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="ID" />
@@ -40,7 +40,8 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoomTypeID" Type="int" Nullable="false" />
-          <Property Name="SpotsExtraBeds" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExtraBeds" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="RoomType">
           <Key>
@@ -48,6 +49,8 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="AvailbleExtraBeds" Type="smallint" Nullable="false" />
+          <Property Name="Spots" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Worker">
           <Key>
@@ -105,18 +108,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Room_RoomType">
-          <End Role="RoomType" Type="Self.RoomType" Multiplicity="1" />
-          <End Role="Room" Type="Self.Room" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RoomType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Room">
-              <PropertyRef Name="RoomTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="HotelDBModelStoreContainer">
           <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
@@ -140,13 +131,8 @@
             <End Role="Booking" EntitySet="Booking" />
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
-          <AssociationSet Name="FK_Room_RoomType" Association="Self.FK_Room_RoomType">
-            <End Role="RoomType" EntitySet="RoomType" />
-            <End Role="Room" EntitySet="Room" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HotelDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -191,9 +177,10 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoomTypeID" Type="Int32" Nullable="false" />
-          <Property Name="SpotsExtraBeds" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_Room" FromRole="Room" ToRole="Booking" />
           <NavigationProperty Name="RoomType" Relationship="Self.FK_Room_RoomType" FromRole="Room" ToRole="RoomType" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExtraBeds" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="RoomType">
           <Key>
@@ -202,6 +189,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Rooms" Relationship="Self.FK_Room_RoomType" FromRole="RoomType" ToRole="Room" />
+          <Property Name="AvailbleExtraBeds" Type="Int16" Nullable="false" />
+          <Property Name="Spots" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="Worker">
           <Key>
@@ -341,15 +330,18 @@
           <EntitySetMapping Name="Rooms">
             <EntityTypeMapping TypeName="HotelDBModel.Room">
               <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="ExtraBeds" ColumnName="ExtraBeds" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
-                <ScalarProperty Name="SpotsExtraBeds" ColumnName="SpotsExtraBeds" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RoomTypes">
             <EntityTypeMapping TypeName="HotelDBModel.RoomType">
               <MappingFragment StoreEntitySet="RoomType">
+                <ScalarProperty Name="Spots" ColumnName="Spots" />
+                <ScalarProperty Name="AvailbleExtraBeds" ColumnName="AvailbleExtraBeds" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>

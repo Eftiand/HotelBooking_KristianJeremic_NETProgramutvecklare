@@ -41,7 +41,13 @@
             this.EmailLabel = new System.Windows.Forms.Label();
             this.AgeTextBox = new System.Windows.Forms.TextBox();
             this.AgeLabel = new System.Windows.Forms.Label();
-            this.CreateButton = new System.Windows.Forms.Button();
+            this.BookButton = new System.Windows.Forms.Button();
+            this.CustomerLabel = new System.Windows.Forms.Label();
+            this.PeopleLabel = new System.Windows.Forms.Label();
+            this.MinusButton = new System.Windows.Forms.Button();
+            this.PlusButton = new System.Windows.Forms.Button();
+            this.CounterLabel = new System.Windows.Forms.Label();
+            this.AdminButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // MonthCalenderLeft
@@ -97,7 +103,7 @@
             // LoginButton
             // 
             this.LoginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LoginButton.Location = new System.Drawing.Point(12, 33);
+            this.LoginButton.Location = new System.Drawing.Point(18, 33);
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Size = new System.Drawing.Size(75, 23);
             this.LoginButton.TabIndex = 6;
@@ -156,15 +162,81 @@
             this.AgeLabel.TabIndex = 11;
             this.AgeLabel.Text = "Age";
             // 
-            // CreateButton
+            // BookButton
             // 
-            this.CreateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CreateButton.Location = new System.Drawing.Point(401, 134);
-            this.CreateButton.Name = "CreateButton";
-            this.CreateButton.Size = new System.Drawing.Size(75, 23);
-            this.CreateButton.TabIndex = 13;
-            this.CreateButton.Text = "Create Booking";
-            this.CreateButton.UseVisualStyleBackColor = true;
+            this.BookButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BookButton.Location = new System.Drawing.Point(401, 134);
+            this.BookButton.Name = "BookButton";
+            this.BookButton.Size = new System.Drawing.Size(75, 23);
+            this.BookButton.TabIndex = 13;
+            this.BookButton.Text = "Create Booking";
+            this.BookButton.UseVisualStyleBackColor = true;
+            this.BookButton.Click += new System.EventHandler(this.CreateButton_Click);
+            // 
+            // CustomerLabel
+            // 
+            this.CustomerLabel.AutoSize = true;
+            this.CustomerLabel.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CustomerLabel.Location = new System.Drawing.Point(184, 58);
+            this.CustomerLabel.Name = "CustomerLabel";
+            this.CustomerLabel.Size = new System.Drawing.Size(122, 16);
+            this.CustomerLabel.TabIndex = 14;
+            this.CustomerLabel.Text = "Customer Information";
+            // 
+            // PeopleLabel
+            // 
+            this.PeopleLabel.AutoSize = true;
+            this.PeopleLabel.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PeopleLabel.Location = new System.Drawing.Point(256, 119);
+            this.PeopleLabel.Name = "PeopleLabel";
+            this.PeopleLabel.Size = new System.Drawing.Size(45, 16);
+            this.PeopleLabel.TabIndex = 15;
+            this.PeopleLabel.Text = "People";
+            // 
+            // MinusButton
+            // 
+            this.MinusButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MinusButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MinusButton.Location = new System.Drawing.Point(256, 138);
+            this.MinusButton.Name = "MinusButton";
+            this.MinusButton.Size = new System.Drawing.Size(28, 29);
+            this.MinusButton.TabIndex = 16;
+            this.MinusButton.Text = "-";
+            this.MinusButton.UseVisualStyleBackColor = true;
+            this.MinusButton.Click += new System.EventHandler(this.MinusButton_Click);
+            // 
+            // PlusButton
+            // 
+            this.PlusButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PlusButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlusButton.Location = new System.Drawing.Point(290, 138);
+            this.PlusButton.Name = "PlusButton";
+            this.PlusButton.Size = new System.Drawing.Size(28, 29);
+            this.PlusButton.TabIndex = 17;
+            this.PlusButton.Text = "+";
+            this.PlusButton.UseVisualStyleBackColor = true;
+            this.PlusButton.Click += new System.EventHandler(this.PlusButton_Click);
+            // 
+            // CounterLabel
+            // 
+            this.CounterLabel.AutoSize = true;
+            this.CounterLabel.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CounterLabel.Location = new System.Drawing.Point(333, 141);
+            this.CounterLabel.Name = "CounterLabel";
+            this.CounterLabel.Size = new System.Drawing.Size(19, 21);
+            this.CounterLabel.TabIndex = 18;
+            this.CounterLabel.Text = "0";
+            // 
+            // AdminButton
+            // 
+            this.AdminButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AdminButton.Location = new System.Drawing.Point(401, 33);
+            this.AdminButton.Name = "AdminButton";
+            this.AdminButton.Size = new System.Drawing.Size(75, 23);
+            this.AdminButton.TabIndex = 19;
+            this.AdminButton.Text = "Admin";
+            this.AdminButton.UseVisualStyleBackColor = true;
+            this.AdminButton.Click += new System.EventHandler(this.AdminButton_Click);
             // 
             // IndexForm
             // 
@@ -172,7 +244,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ClientSize = new System.Drawing.Size(503, 450);
-            this.Controls.Add(this.CreateButton);
+            this.Controls.Add(this.AdminButton);
+            this.Controls.Add(this.CounterLabel);
+            this.Controls.Add(this.PlusButton);
+            this.Controls.Add(this.MinusButton);
+            this.Controls.Add(this.PeopleLabel);
+            this.Controls.Add(this.CustomerLabel);
+            this.Controls.Add(this.BookButton);
             this.Controls.Add(this.AgeTextBox);
             this.Controls.Add(this.AgeLabel);
             this.Controls.Add(this.EmailTextBox);
@@ -208,6 +286,12 @@
         private System.Windows.Forms.Label EmailLabel;
         private System.Windows.Forms.TextBox AgeTextBox;
         private System.Windows.Forms.Label AgeLabel;
-        private System.Windows.Forms.Button CreateButton;
+        private System.Windows.Forms.Button BookButton;
+        private System.Windows.Forms.Label CustomerLabel;
+        private System.Windows.Forms.Label PeopleLabel;
+        private System.Windows.Forms.Button MinusButton;
+        private System.Windows.Forms.Button PlusButton;
+        private System.Windows.Forms.Label CounterLabel;
+        private System.Windows.Forms.Button AdminButton;
     }
 }

@@ -22,7 +22,8 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Models
     
         public int ID { get; set; }
         public int RoomTypeID { get; set; }
-        public short SpotsExtraBeds { get; set; }
+        public string Name { get; set; }
+        public short ExtraBeds { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }

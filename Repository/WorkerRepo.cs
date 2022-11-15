@@ -16,7 +16,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
         }
         public void Add(Worker item)
         {
-            try 
+            try
             {
                 if (item.Name == null || item.SecretCode.ToString() == "")
                 {
