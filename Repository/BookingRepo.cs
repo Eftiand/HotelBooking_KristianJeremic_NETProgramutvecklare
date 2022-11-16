@@ -3,6 +3,7 @@ using HotelBooking_KristianJeremic_NETProgramutvecklare.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
 {
@@ -84,45 +85,34 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
             //So all dates that intersect get removed.
             get
             {
-                //First check if there is any room without any bookings
-                if (new RoomRepo().GetAll().Count() > GetAll().Select(x => x.RoomID).Count())
-                {
-                    return new DateTime[0];
-                }
 
                 var bookings = GetAll();
 
-                var datesBookedFirstRoom = new List<DateTime>();
+                var minDate = bookings.OrderBy(x=>x.StartDate).Select(x => x.StartDate).FirstOrDefault();
+                var maxDate = bookings.OrderByDescending(x => x.EndDate).Select(x => x.EndDate).FirstOrDefault();
 
-                int indexFirst = 0;
-                int indexSecond = 0;
+                var listToSendBack = GetDates(minDate, maxDate);
 
-
-                foreach (var datesOne in bookings)
+                foreach (var item in GetDates(minDate, maxDate))
                 {
-                    indexSecond = 0;
-                    datesBookedFirstRoom.Clear();
-                    datesBookedFirstRoom = GetDates(datesOne.StartDate, datesOne.EndDate);
-
-                    foreach (var compare in bookings)
+                    int counter = 0;
+                    
+                    foreach (var booking in bookings)
                     {
-                        if (indexFirst != indexSecond)
-                        {
-                            for (var date = compare.StartDate; date <= compare.EndDate.AddDays(-1); date = date.AddDays(1))
-                            {
-                                if (datesBookedFirstRoom.Contains(date))
-                                {
-                                    datesBookedFirstRoom.Remove(date);
-                                }
-                            }
-                        }
-                        indexSecond++;
+                        var tempDates = GetDates(booking.StartDate, booking.EndDate);
+
+                        if (!tempDates.Contains(item))
+                            counter++;
                     }
-                    indexFirst++;
+
+                    var roomTemp = new RoomRepo().GetAll();
+
+                    if(counter>=roomTemp.Count())
+                        listToSendBack.Remove(item);
 
                 }
 
-                return datesBookedFirstRoom.ToArray();
+                return listToSendBack.ToArray();
             }
         }
         public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate, int spots)
@@ -159,7 +149,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
         private List<DateTime> GetDates(DateTime startDate, DateTime endDate)
         {
             var dates = new List<DateTime>();
-            for (var date = startDate; date <= endDate.AddDays(-1); date = date.AddDays(1))
+            for (var date = startDate; date <= endDate; date = date.AddDays(1))
             {
                 dates.Add(FormatDateTime(date));
             }

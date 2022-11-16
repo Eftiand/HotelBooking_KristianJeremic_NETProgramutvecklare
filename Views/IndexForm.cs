@@ -159,6 +159,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
             AdminForm form = new AdminForm();
             form.StartPosition = FormStartPosition.CenterParent;
             form.ShowDialog();
+            this.Update();
         }
     }
 }
