@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.CustomerGridView = new System.Windows.Forms.DataGridView();
+            this.IdText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameTxt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmailTxt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AgeTxt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.NameLabel = new System.Windows.Forms.Label();
@@ -37,16 +41,14 @@
             this.EmailLabel = new System.Windows.Forms.Label();
             this.AgeTextBox = new System.Windows.Forms.TextBox();
             this.AgeLabel = new System.Windows.Forms.Label();
-            this.IdText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameTxt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmailTxt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AgeTxt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DeleteButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CustomerGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // CustomerGridView
             // 
+            this.CustomerGridView.AllowUserToAddRows = false;
+            this.CustomerGridView.AllowUserToDeleteRows = false;
             this.CustomerGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CustomerGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdText,
@@ -63,6 +65,31 @@
             this.CustomerGridView.Size = new System.Drawing.Size(303, 175);
             this.CustomerGridView.TabIndex = 0;
             this.CustomerGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CustomerGridView_CellContentClick);
+            // 
+            // IdText
+            // 
+            this.IdText.HeaderText = "ID";
+            this.IdText.Name = "IdText";
+            this.IdText.ReadOnly = true;
+            this.IdText.Visible = false;
+            // 
+            // NameTxt
+            // 
+            this.NameTxt.HeaderText = "Name";
+            this.NameTxt.Name = "NameTxt";
+            this.NameTxt.ReadOnly = true;
+            // 
+            // EmailTxt
+            // 
+            this.EmailTxt.HeaderText = "Email";
+            this.EmailTxt.Name = "EmailTxt";
+            this.EmailTxt.ReadOnly = true;
+            // 
+            // AgeTxt
+            // 
+            this.AgeTxt.HeaderText = "Age";
+            this.AgeTxt.Name = "AgeTxt";
+            this.AgeTxt.ReadOnly = true;
             // 
             // SaveButton
             // 
@@ -134,31 +161,6 @@
             this.AgeLabel.TabIndex = 20;
             this.AgeLabel.Text = "Age";
             // 
-            // IdText
-            // 
-            this.IdText.HeaderText = "ID";
-            this.IdText.Name = "IdText";
-            this.IdText.ReadOnly = true;
-            this.IdText.Visible = false;
-            // 
-            // NameTxt
-            // 
-            this.NameTxt.HeaderText = "Name";
-            this.NameTxt.Name = "NameTxt";
-            this.NameTxt.ReadOnly = true;
-            // 
-            // EmailTxt
-            // 
-            this.EmailTxt.HeaderText = "Email";
-            this.EmailTxt.Name = "EmailTxt";
-            this.EmailTxt.ReadOnly = true;
-            // 
-            // AgeTxt
-            // 
-            this.AgeTxt.HeaderText = "Age";
-            this.AgeTxt.Name = "AgeTxt";
-            this.AgeTxt.ReadOnly = true;
-            // 
             // DeleteButton
             // 
             this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -196,7 +198,7 @@
 
         #endregion
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button CancelButton;
+        private new System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.DataGridView CustomerGridView;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.TextBox NameTextBox;

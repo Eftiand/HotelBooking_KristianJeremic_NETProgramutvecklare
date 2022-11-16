@@ -2,13 +2,6 @@
 using HotelBooking_KristianJeremic_NETProgramutvecklare.Models;
 using HotelBooking_KristianJeremic_NETProgramutvecklare.Repository;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
@@ -18,7 +11,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
         private Customer _customer;
         private Booking _booking;
         private int _counter;
-        public BookingForm(Booking booking, Customer customer,int counter)
+        public BookingForm(Booking booking, Customer customer, int counter)
         {
             InitializeComponent();
             _customer = customer;
@@ -37,13 +30,13 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
 
             foreach (var item in repo.GetAvailableRooms(_booking.StartDate, _booking.EndDate, _counter))
             {
-                DateGridView.Rows.Add(item.ID, item.RoomType.Name, item.Name, item.RoomType.Spots,item.RoomType.AvailbleExtraBeds);
+                DateGridView.Rows.Add(item.ID, item.RoomType.Name, item.Name, item.RoomType.Spots, item.RoomType.AvailbleExtraBeds);
             }
 
             DateLeftLabel.Text = _booking.StartDate.ToShortDateString();
             DateRightLabel.Text = _booking.EndDate.ToShortDateString();
 
-            int width = 80; 
+            int width = 80;
 
             DateGridView.Columns[0].Width = width;
             DateGridView.Columns[1].Width = width;
@@ -58,14 +51,21 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
             customerRepo.Add(_customer);
 
             var roomRepo = new RoomRepo();
-
             var repo = new BookingRepo();
+
             _booking.RoomID = roomRepo.Get(int.Parse(DateGridView.SelectedRows[0].Cells[0].Value.ToString())).ID;
             _booking.CustomerID = _customer.ID;
             _booking.WorkerID = AppInfo.LoggedInWorker.ID;
-            repo.Add(_booking);
+            try
+            {
+                repo.Add(_booking);
+                MessageBox.Show("Booking created");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-            MessageBox.Show("Booking created");
 
             this.Close();
         }

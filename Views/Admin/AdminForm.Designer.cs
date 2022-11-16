@@ -30,6 +30,7 @@
         {
             this.CustomersButton = new System.Windows.Forms.Button();
             this.InvoiceButton = new System.Windows.Forms.Button();
+            this.BookingButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CustomersButton
@@ -52,6 +53,18 @@
             this.InvoiceButton.TabIndex = 16;
             this.InvoiceButton.Text = "Invoices";
             this.InvoiceButton.UseVisualStyleBackColor = true;
+            this.InvoiceButton.Click += new System.EventHandler(this.InvoiceButton_Click);
+            // 
+            // BookingButton
+            // 
+            this.BookingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BookingButton.Location = new System.Drawing.Point(24, 70);
+            this.BookingButton.Name = "BookingButton";
+            this.BookingButton.Size = new System.Drawing.Size(75, 23);
+            this.BookingButton.TabIndex = 17;
+            this.BookingButton.Text = "Bookings";
+            this.BookingButton.UseVisualStyleBackColor = true;
+            this.BookingButton.Click += new System.EventHandler(this.BookingButton_Click);
             // 
             // AdminForm
             // 
@@ -59,6 +72,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ClientSize = new System.Drawing.Size(126, 125);
+            this.Controls.Add(this.BookingButton);
             this.Controls.Add(this.InvoiceButton);
             this.Controls.Add(this.CustomersButton);
             this.Name = "AdminForm";
@@ -71,5 +85,6 @@
 
         private System.Windows.Forms.Button CustomersButton;
         private System.Windows.Forms.Button InvoiceButton;
+        private System.Windows.Forms.Button BookingButton;
     }
 }

@@ -2,9 +2,7 @@
 using HotelBooking_KristianJeremic_NETProgramutvecklare.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
 {
@@ -18,14 +16,14 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
 
         public void Add(Customer item)
         {
-            try 
+            try
             {
                 var customer = CheckEmail(item.Email);
-                if (customer==null)
+                if (customer == null)
                 {
-                    item.Email= item.Email.ToLower();
-                    _dbConnection.Customers.Add(item); 
-                    _dbConnection.SaveChanges(); 
+                    item.Email = item.Email.ToLower();
+                    _dbConnection.Customers.Add(item);
+                    _dbConnection.SaveChanges();
                 }
                 else
                 {
@@ -49,14 +47,14 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
 
         public void Remove(Customer item)
         {
-            try 
-            { 
-                if(new BookingRepo().GetAll().Where(x => x.CustomerID == item.ID).Count() > 0)
+            try
+            {
+                if (new BookingRepo().GetAll().Where(x => x.CustomerID == item.ID).Count() > 0)
                 {
                     throw new Exception("Customer has active bookings. Unable to delete Customer");
                 }
-                _dbConnection.Customers.Remove(item); 
-                _dbConnection.SaveChanges(); 
+                _dbConnection.Customers.Remove(item);
+                _dbConnection.SaveChanges();
             }
             catch (Exception ex) { throw ex; }
         }
@@ -68,7 +66,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
         }
         private Customer CheckEmail(string email)
         {
-            return _dbConnection.Customers.Where(x=>x.Email==email).FirstOrDefault();
+            return _dbConnection.Customers.Where(x => x.Email == email).FirstOrDefault();
         }
     }
 }

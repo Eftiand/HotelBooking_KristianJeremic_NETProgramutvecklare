@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
@@ -20,6 +13,20 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
         private void CustomersButton_Click(object sender, EventArgs e)
         {
             CustomerForm form = new CustomerForm();
+            form.StartPosition = FormStartPosition.CenterParent;
+            form.ShowDialog();
+        }
+
+        private void InvoiceButton_Click(object sender, EventArgs e)
+        {
+            InvoiceForm form = new InvoiceForm();
+            form.StartPosition = FormStartPosition.CenterParent;
+            form.ShowDialog();
+        }
+
+        private void BookingButton_Click(object sender, EventArgs e)
+        {
+            AllBookingsForm form = new AllBookingsForm();
             form.StartPosition = FormStartPosition.CenterParent;
             form.ShowDialog();
         }

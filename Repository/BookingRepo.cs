@@ -3,7 +3,6 @@ using HotelBooking_KristianJeremic_NETProgramutvecklare.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
 {
@@ -22,9 +21,13 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
         {
             item.StartDate = new DateTime(item.StartDate.Year, item.StartDate.Month, item.StartDate.Day, 0, _checkInTime, 0);
             item.EndDate = new DateTime(item.EndDate.Year, item.EndDate.Month, item.EndDate.Day, 0, _checkOutTime, 0);
-            try 
+            try
             {
-                _dbConnection.Bookings.Add(item); 
+                if (item.CustomerID == GetAll().Where(x => x.StartDate >= item.StartDate && x.EndDate <= item.EndDate).Select(x => x.CustomerID).FirstOrDefault())
+                {
+                    throw new Exception("Customer already has a booking for this period");
+                }
+                _dbConnection.Bookings.Add(item);
                 _dbConnection.SaveChanges();
 
                 var invoiceRepo = new InvoiceRepo();
@@ -47,7 +50,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
 
         public List<Booking> GetAll()
         {
-            try { return _dbConnection.Bookings.Include("Room").ToList(); }
+            try { return _dbConnection.Bookings.ToList(); }
             catch (Exception ex) { throw ex; }
         }
 
@@ -56,11 +59,21 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
             try { _dbConnection.Bookings.Remove(item); _dbConnection.SaveChanges(); }
             catch (Exception ex) { throw ex; }
         }
-
+        public void Remove(int item)
+        {
+            try { _dbConnection.Bookings.Remove(GetAll().Where(x=>x.ID==item).FirstOrDefault()); _dbConnection.SaveChanges(); }
+            catch (Exception ex) { throw ex; }
+        }
         public void Update(Booking item)
         {
             item.StartDate.AddHours(_checkInTime);
             item.EndDate.AddHours(_checkOutTime);
+            
+            if (GetAll().Where(x => x.RoomID == item.RoomID && item.CustomerID != x.CustomerID && item.StartDate<=x.StartDate &&x.EndDate<=item.EndDate).Count() > 0)
+            {
+                throw new Exception("Room is already booked for this period");
+            }
+
             try { _dbConnection.Entry(Get(item.ID)).CurrentValues.SetValues(item); }
             catch (Exception ex) { throw ex; }
         }
@@ -72,31 +85,30 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
             get
             {
                 //First check if there is any room without any bookings
-                if (new RoomRepo().GetAll().Count()>GetAll().Select(x => x.RoomID).Count())
+                if (new RoomRepo().GetAll().Count() > GetAll().Select(x => x.RoomID).Count())
                 {
                     return new DateTime[0];
                 }
 
                 var bookings = GetAll();
-                var datesBookedFirstRoom = new List<DateTime>();
-                var datesBookedSecondRoom = new List<DateTime>();
 
-                var datesBooked = new List<DateTime>();
+                var datesBookedFirstRoom = new List<DateTime>();
 
                 int indexFirst = 0;
                 int indexSecond = 0;
 
+
                 foreach (var datesOne in bookings)
                 {
-                    for (var date = datesOne.StartDate; date <= datesOne.EndDate.AddDays(-1); date = date.AddDays(1))
-                    {
-                        datesBookedFirstRoom.Add(date);
-                    }
-                    foreach (var CompareDates in bookings)
+                    indexSecond = 0;
+                    datesBookedFirstRoom.Clear();
+                    datesBookedFirstRoom = GetDates(datesOne.StartDate, datesOne.EndDate);
+
+                    foreach (var compare in bookings)
                     {
                         if (indexFirst != indexSecond)
                         {
-                            for (var date = CompareDates.StartDate; date <= CompareDates.EndDate.AddDays(-1); date = date.AddDays(1))
+                            for (var date = compare.StartDate; date <= compare.EndDate.AddDays(-1); date = date.AddDays(1))
                             {
                                 if (datesBookedFirstRoom.Contains(date))
                                 {
@@ -107,29 +119,25 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
                         indexSecond++;
                     }
                     indexFirst++;
-                }
 
+                }
 
                 return datesBookedFirstRoom.ToArray();
             }
         }
-        public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate,int spots)
+        public List<Room> GetAvailableRooms(DateTime startDate, DateTime endDate, int spots)
         {
-            var datesToCheck = new List<DateTime>();
 
-            
+
             var rooms = new RoomRepo().GetAll();
 
-            for (var date = startDate; date <= endDate.AddDays(-1); date = date.AddDays(1))
-            {
-                datesToCheck.Add(FormatDateTime(date));
-            }
+            var spanDates = GetDates(startDate, endDate);
 
             foreach (var item in GetAll())
             {
                 for (var date = FormatDateTime(item.StartDate); date <= item.EndDate.AddDays(-1); date = date.AddDays(1))
                 {
-                    if (datesToCheck.Contains(date))
+                    if (spanDates.Contains(date))
                     {
                         //Deletes the first instance of room if any date overlaps
                         Room tempRoom = rooms.Where(x => x.ID == item.RoomID)
@@ -141,12 +149,21 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Repository
             }
             var result = rooms.Where(x => (x.RoomType.Spots + x.RoomType.AvailbleExtraBeds) >= spots).ToList();
 
-            
+
             return result;
         }
         private DateTime FormatDateTime(DateTime item)
         {
             return new DateTime(item.Year, item.Month, item.Day, 0, 0, 0);
+        }
+        private List<DateTime> GetDates(DateTime startDate, DateTime endDate)
+        {
+            var dates = new List<DateTime>();
+            for (var date = startDate; date <= endDate.AddDays(-1); date = date.AddDays(1))
+            {
+                dates.Add(FormatDateTime(date));
+            }
+            return dates;
         }
     }
 }

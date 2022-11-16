@@ -13,6 +13,19 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
         {
             InitializeComponent();
             SetSettings();
+            CheckInvoicePayments();
+        }
+        void CheckInvoicePayments()
+        {
+            foreach (var item in new InvoiceRepo().GetAll())
+            {
+                if (item.Paid == false && item.LastDayToPay < DateTime.Now)
+                {
+                    new InvoiceRepo().Remove(item);
+                    new BookingRepo().Remove(item.Booking);
+                }
+
+            }
         }
         void SetSettings()
         {
@@ -27,7 +40,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
             BookingRepo bookingRepo = new BookingRepo();
             //Put into the array of days that are not available
             MonthCalenderLeft.BoldedDates = bookingRepo.GetBookedDates;
-            MonthCalenderRight.BoldedDates = new DateTime[] { };
+            MonthCalenderRight.BoldedDates = bookingRepo.GetBookedDates;
 
             MonthCalenderRight.SelectionStart = DateTime.Now.AddDays(7);
             MonthCalenderLeft.MinDate = DateTime.Now;
@@ -62,7 +75,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
             else
             {
                 LoginButton.Text = "Login";
-                NameLabel.Visible = false; 
+                NameLabel.Visible = false;
                 NameTextBox.Visible = false;
 
                 AgeLabel.Visible = false;
@@ -130,7 +143,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
 
         private void MinusButton_Click(object sender, EventArgs e)
         {
-            if(_counter>0)
+            if (_counter > 0)
                 _counter--;
             CounterLabel.Text = _counter.ToString();
         }

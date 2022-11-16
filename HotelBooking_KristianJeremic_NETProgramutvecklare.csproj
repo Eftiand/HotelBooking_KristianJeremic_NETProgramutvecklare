@@ -98,11 +98,17 @@
     <Compile Include="Repository\RoomRepo.cs" />
     <Compile Include="Repository\RoomTypeRepo.cs" />
     <Compile Include="Repository\WorkerRepo.cs" />
-    <Compile Include="Views\AdminForm.cs">
+    <Compile Include="Views\Admin\AdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\AdminForm.Designer.cs">
+    <Compile Include="Views\Admin\AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\AllBookingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\AllBookingsForm.Designer.cs">
+      <DependentUpon>AllBookingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\BookingForm.cs">
       <SubType>Form</SubType>
@@ -110,10 +116,10 @@
     <Compile Include="Views\BookingForm.Designer.cs">
       <DependentUpon>BookingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\CustomerForm.cs">
+    <Compile Include="Views\Admin\CustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\CustomerForm.Designer.cs">
+    <Compile Include="Views\Admin\CustomerForm.Designer.cs">
       <DependentUpon>CustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\IndexForm.cs">
@@ -121,6 +127,12 @@
     </Compile>
     <Compile Include="Views\IndexForm.Designer.cs">
       <DependentUpon>IndexForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\InvoiceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Admin\InvoiceForm.Designer.cs">
+      <DependentUpon>InvoiceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\WorkerForm.cs">
       <SubType>Form</SubType>
@@ -137,17 +149,23 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Views\AdminForm.resx">
+    <EmbeddedResource Include="Views\Admin\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\AllBookingsForm.resx">
+      <DependentUpon>AllBookingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BookingForm.resx">
       <DependentUpon>BookingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\CustomerForm.resx">
+    <EmbeddedResource Include="Views\Admin\CustomerForm.resx">
       <DependentUpon>CustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\IndexForm.resx">
       <DependentUpon>IndexForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Admin\InvoiceForm.resx">
+      <DependentUpon>InvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\WorkerForm.resx">
       <DependentUpon>WorkerForm.cs</DependentUpon>

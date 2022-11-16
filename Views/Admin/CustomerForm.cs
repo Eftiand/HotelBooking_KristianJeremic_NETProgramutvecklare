@@ -1,13 +1,5 @@
-﻿using HotelBooking_KristianJeremic_NETProgramutvecklare.Models;
-using HotelBooking_KristianJeremic_NETProgramutvecklare.Repository;
+﻿using HotelBooking_KristianJeremic_NETProgramutvecklare.Repository;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
@@ -48,7 +40,7 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
             AgeTextBox.Text = customer.Age.ToString();
 
         }
-        
+
         private void SaveButton_Click(object sender, EventArgs e)
         {
             var customer = _customer.Get(SelectedRow);
@@ -64,7 +56,8 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
         }
         private int SelectedRow
         {
-            get {
+            get
+            {
                 if (CustomerGridView.SelectedRows.Count > 0)
                 {
                     return int.Parse(CustomerGridView.SelectedRows[0].Cells[0].Value.ToString());
@@ -82,8 +75,8 @@ namespace HotelBooking_KristianJeremic_NETProgramutvecklare.Views
                 MessageBox.Show("Customer deleted");
                 SetSettings();
             }
-            catch(Exception ex) { MessageBox.Show(ex.Message); }
-           
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
         }
     }
 }
